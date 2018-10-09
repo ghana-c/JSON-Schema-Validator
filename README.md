@@ -6,9 +6,9 @@ JSON Schema Validator is simple and small library used to validate JSON or JSON 
 
 JSON Schema Validator calculates difference between JSON or JSON string or array with preformatted JSON structure and returns error on -
 
-`Invalid value`
-`Invalid data type`
-`Missing JSON key`
+* `Invalid value`
+* `Invalid data type`
+* `Missing JSON key`
 
 NOTE:
 1. JSON Schema Validator also check required JSON keys
