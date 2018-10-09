@@ -2,7 +2,7 @@
 /**
  * This class is used to compile JSON and check if JSON is in proper format
  */
-class JsonFormatter {
+class JsonSchemaValidator {
 
 	/**
 	 * Set to true, if you want to remove non declared fields
