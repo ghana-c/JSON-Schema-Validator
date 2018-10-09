@@ -1,0 +1,46 @@
+{
+	"@type": "array",
+	"@items": {
+		"@required": ["id", "products"],
+		"@properties": {
+			"id": {"@type":"string","@format":"category_id_format"},
+			"products": {
+				"@type": "array",
+				"@items": {
+					"@required": ["product_id"],
+					"@properties": {
+						"product_id": {"@anyof": [{"@type":"integer"},{"@type":"null"},{"@type":"string","@format":"numeric"}]}
+					}
+				}
+			},
+			"links": {
+				"@properties": {
+					"sandbox": {
+						"@type": "array",
+						"@properties": {
+							"method": {"@type":"string"},
+							"url": {"@type":"string"}
+						}
+					}
+				}
+			},
+			"categories": {
+				"@type": "array",
+				"@default": "",
+				"@items": {
+					"@required": ["category_id","sub_category_ids"],
+					"@properties": {
+						"category_id": {"@anyof": [{"@type":"integer"},{"@type":"string","@format":"numeric"}],"@default":"2"},
+						"sub_category_ids": {
+							"@type": "array",
+							"@default": "",
+							"@items": {
+								"@type":"integer"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
