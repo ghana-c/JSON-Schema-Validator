@@ -1,26 +1,26 @@
-# JSON Formatter
+# JSON Schema Validator
 
 > Latest Version v1.0.0
  
-JSON Formatter is simple and small library used to validate JSON or JSON string or array data with preformatted JSON structure.
+JSON Schema Validator is simple and small library used to validate JSON or JSON string or array data with preformatted JSON structure.
 
-JSON Formatter calculates difference between JSON or JSON string or array with preformatted JSON structure and returns error on -
+JSON Schema Validator calculates difference between JSON or JSON string or array with preformatted JSON structure and returns error on -
 
 `Invalid value`
 `Invalid data type`
 `Missing JSON key`
 
 NOTE:
-1. JSON Formatter also check required JSON keys
+1. JSON Schema Validator also check required JSON keys
 2. You can also put default value for any JSON key
 
-You can specify output format in which, you want to get response from JSON Formatter. Output format can be -
+You can specify output format in which, you want to get response from JSON Schema Validator. Output format can be -
 
 * `object` as JSON
 * `string` or `jsonstring` as JSON string
 * `array`
 
-Input for JSON Formatter can be -
+Input for JSON Schema Validator can be -
 
 * JSON
 * JSON string
@@ -28,28 +28,28 @@ Input for JSON Formatter can be -
 
 ### Getting started
 
-First, you need to include "JsonFormatter.php" in your project :
+First, you need to include "JsonSchemaValidator.php" in your project :
 
 ```PHP
-include("JsonFormatter.php");
+include("JsonSchemaValidator.php");
 ```
 
 NOTE: You can specify absolute path.
 
 #### Usage
 
-e.g. Suppose, you want to check whether your json data or array is in proper format, whether it has all mandatory keys and whether it has specific format for specific key `(like integer for key id)` then you can do that using JSON Formatter. You can see the [Example](https://github.com/ghana-c/JSON-Formatter/blob/master/example.php) :
+e.g. Suppose, you want to check whether your json data or array is in proper format, whether it has all mandatory keys and whether it has specific format for specific key `(like integer for key id)` then you can do that using JSON Schema Validator. You can see the [Example](https://github.com/ghana-c/JSON-Schema-Validator/blob/master/example.php) :
 
-In above example, you want to first inlude the class file JsonFormatter as below:
+In above example, you want to first inlude the class file JsonSchemaValidator as below:
 
 ```PHP
-include("JsonFormatter.php");
+include("JsonSchemaValidator.php");
 ```
 
 Create class object as below:
 
 ```PHP
-$json_compiler = new JsonFormatter(true);
+$json_sv = new JsonSchemaValidator(true);
 ```
 
 * `true` : Remove unwanted fields (fields that are not specified in preformatted json) from input data
@@ -57,7 +57,7 @@ $json_compiler = new JsonFormatter(true);
 
 NOTE: If you create class object without passing `true` or `false`, then by default it consider the value as `false`
 
-There are some predefined formats in JSON Formatter to format a value of key in input data as below:
+There are some predefined formats in JSON Schema Validator to format a value of key in input data as below:
 
 * `date` : `^\d{4}\-\d{2}\-\d{2}$` e.g. 2017-12-31
 * `numeric` : `^\d+$` e.g. 789456
@@ -65,14 +65,14 @@ There are some predefined formats in JSON Formatter to format a value of key in 
 * `email` : `^[_a-z0-9-]+(\.[_a-z0-9-]+)*\@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$` e.g. xyz@example.com
 * `non_numeric_string` : `^([A-Za-z](\,){0,1}(\.){0,1}\s*){1,}$` e.g. I am a boy. (You can use comma or dot in string)
 
-You can write your own format, and use it in your preformatted json. You need to add your own format(s) array to JSON Formatter using method `setExtraFormats` as:
+You can write your own format, and use it in your preformatted json. You need to add your own format(s) array to JSON Schema Validator using method `setExtraFormats` as:
 
 ```PHP
 $extra_formats = [
 	'category_id_format' => '^CT\d+$'
 ];
 
-$json_formatter->setExtraFormats($extra_formats);
+$json_sv->setExtraFormats($extra_formats);
 ```
 
 Get the preformatted JSON file (please find the rules about [How to Write Preformatted JSON file]), pass this file and `error` variable to `compile` method as:
@@ -80,20 +80,20 @@ Get the preformatted JSON file (please find the rules about [How to Write Prefor
 ```PHP
 $preformatted_json = file_get_contents('./json_preformats/products.json');
 $error = '';
-$result = $json_formatter->compile($products_data, $preformatted_json, $error, 'string');
+$result = $json_sv->compile($products_data, $preformatted_json, $error, 'string');
 ```
 
-You can specify output format in which, you want to get response from JSON Formatter. Output format can be -
+You can specify output format in which, you want to get response from JSON Schema Validator. Output format can be -
 
 * `object` as JSON
 * `string` or `jsonstring` as JSON string
 * `array`
 
-NOTE: You can get the error (if any) in `error` variable, if no error, JSON Formatter will return  formatted response
+NOTE: You can get the error (if any) in `error` variable, if no error, JSON Schema Validator will return  formatted response
 
 ### Rules to Write Preformatted JSON File
 
-You can see the [Example](https://github.com/ghana-c/JSON-Formatter/blob/master/json_preformats/products.json) :
+You can see the [Example](https://github.com/ghana-c/JSON-Schema-Validator/blob/master/json_preformats/products.json) :
 
 Possible values of JSON attributes:
 
@@ -115,14 +115,14 @@ Possible values of JSON attributes:
 
 * `@values` : If the value associated with key in input data can be either of fixed values (like status can be success or failed or error etc.), then you can write the array of possible values in this attribute.
 
-### Funtions You Can Use Separately (You do not want to use this functions while validating your data with preformatted JSON structure. It is handeled in JSON Formatter)
+### Funtions You Can Use Separately (You do not want to use this functions while validating your data with preformatted JSON structure. It is handeled in JSON Schema Validator)
 
 #### isJsonString
 
 This function is used to check whether input string is valid json string or not
 
 ```PHP
-$json_formatter->isJsonString($your_data);
+$json_sv->isJsonString($your_data);
 ```
 
 Output of this function can be `true` `false`
@@ -132,7 +132,7 @@ Output of this function can be `true` `false`
 This function is used to convert input data in requested format
 
 ```PHP
-$json_formatter->convertToReturnType($your_data, $required_format);
+$json_sv->convertToReturnType($your_data, $required_format);
 ```
 
 Required format can be `jsonstring` as JSON string `object` as JSON object `array` as normal array
@@ -143,14 +143,4 @@ Ghanashyam Chaudhari (mr.ghchaudhari@gmail.com)
 
 ### NOTE
 
-Email me at [mr.ghchaudhari@gmail.com](mailto:mr.ghchaudhari@gmail.com) for any queries.
-
-
-
-
-
-
-
-
-
-
+Email me at [mr.ghchaudhari@gmail.com](mailto:mr.ghchaudhari@gmail.com) for any queries
