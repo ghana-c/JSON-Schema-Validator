@@ -178,14 +178,14 @@ class JsonSchemaValidator {
 						return false;	
 					}
 				}
+				if(isset($formatted_elem['@required']) && !empty($formatted_elem['@required']) &&
+					 in_array($key, $formatted_elem['@required']) &&
+					 array_key_exists($key, $element) && empty($element[$key])) {
+					$error = "`".$key."` cannot be empty in the request data.";
+					return false;
+				}
 				/* Check if variable type in pre formatted structure is array, if so, call self function recursively */
 				if(isset($property['@type']) && $property['@type'] == 'array') {
-					if(isset($formatted_elem['@required']) && !empty($formatted_elem['@required']) &&
-					 	 in_array($key, $formatted_elem['@required']) &&
-						 array_key_exists($key, $element) && empty($element[$key])) {
-						$error = "`".$key."` cannot be empty in the request data.";
-						return false;
-					}
 					if(isset($element[$key])) {
 						if(isset($property['@items']) && !empty($property['@items'])) {
 							foreach($element[$key] as &$item) {
